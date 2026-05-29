@@ -10,7 +10,8 @@
 <!-- Paste a link to your commits for this week. The easiest way: go to your repo on GitHub,
      click "commits", and copy the URL after filtering by your name or branch. -->
 
-**Link:**
+**Link: https://github.com/Maii2025/media-tracker-android/pull/2/changes/8bf9a3b1b53eb0ecc0eb6d868fe829375bb32561
+
 
 ---
 
@@ -20,13 +21,30 @@
      Part 1 is the link — I will verify the review exists on GitHub.
      Part 2 is your written assessment — what you actually looked at and what you found. -->
 
-**Reviewed:** *(pod mate's name)*
-**Link to my review:**
+**Reviewed: Jacob Vigliotti *(pod mate's name)*
+**Link to my review: https://github.com/jacobvigliotti/media-tracker-android/pull/2 
 
 ### What I Looked At
 
 <!-- Walk through the code you reviewed. What was the PR trying to do? Which files or
-     functions did you focus on? -->
+     functions did you focus on? --> 
+     
+Fixing the follow probelms based on these statement:
+-Profile data might not update correctly after the app is backgrounded
+-Something seems to keep loading in the background after I leave the Library screen
+-Library filter resets every time I rotate my phone
+-The Register button doesn't do anything
+-The filter chips on the Library screen get cut off on my phone
+-The bottom nav bar never highlights the active tab
+-App crashes when I tap anything in the Library
+
+The files that I focused on and worked on for the functions were:
+-BottomNavBar.kt
+-NagGraph.kt
+-Routes.kt
+-LibraryScreen.kt
+-LibraryViewModel.lt
+-MyProfileScreen.kt
 
 ### What I Noticed
 
@@ -34,12 +52,16 @@
      done well that you want to call out? "I looked at the ViewModel and everything seemed fine"
      is not specific enough. Name the thing you noticed and explain why it matters. -->
 
+     -None.
+
 ### Comments I Left
 
 <!-- Briefly summarize the comments you left on the PR. If you left a positive comment,
      say what it was. If you left a suggestion, say what you suggested and why. -->
 
 ---
+
+I left a postitive comment: The pod mate add an code that was not same as the instructor, but at least it works for him.
 
 ## One Thing I Understood More Deeply
 
@@ -49,12 +71,15 @@
 
 ---
 
+The import part, some coding require and suggest to add a import on top of the code. 
+
 ## One Thing I'm Still Confused About
 
 <!-- Be honest. This is the most useful part of the reflection for me — it tells me where to
      spend more time in class. You will not lose points for being confused. -->
 
 ---
+The reflection part that I need to spend more time is finish commint my coding on time so my pod mates can checkout my coding and get me review. 
 
 ## Anything Else *(optional)*
 
