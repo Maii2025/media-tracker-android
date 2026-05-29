@@ -52,7 +52,7 @@ The files that I focused on and worked on for the functions were:
      done well that you want to call out? "I looked at the ViewModel and everything seemed fine"
      is not specific enough. Name the thing you noticed and explain why it matters. -->
 
-     -None.
+     -The horizontalScroll line from the LibraryScreen.kt required a import to be able to work smoothly.
 
 ### Comments I Left
 
