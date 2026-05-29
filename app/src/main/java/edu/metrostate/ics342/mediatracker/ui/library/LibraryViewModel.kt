@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import androidx.lifecycle.viewModelScope
 
 class LibraryViewModel : ViewModel() {
 
@@ -18,14 +19,17 @@ class LibraryViewModel : ViewModel() {
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
+    //add new line for #16
+    private val _filterState= MutableStateFlow(value = LibraryStatus.WANT_TO)
+    val filterStatus: StateFlow<LibraryStatus> = _filterState.asStateFlow()
+
     init {
         loadLibrary()
     }
 
     fun loadLibrary() {
-        GlobalScope.launch {
+        viewModelScope.launch { //delete global scope change tp viewModelScope
             _isLoading.value = true
-            Thread.sleep(800)
             _libraryItems.value = FakeMediaRepository.libraryItems
             _isLoading.value = false
         }
@@ -39,5 +43,10 @@ class LibraryViewModel : ViewModel() {
         _libraryItems.value = _libraryItems.value.map { item ->
             if (item.mediaId == mediaId) item.copy(status = newStatus) else item
         }
+    }
+
+    //new line
+    fun updateFilter(status: libraryStatus){
+        _filterState.value= status
     }
 }

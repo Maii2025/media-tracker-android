@@ -22,6 +22,9 @@ import coil.compose.AsyncImage
 import edu.metrostate.ics342.mediatracker.data.model.LibraryItem
 import edu.metrostate.ics342.mediatracker.data.model.LibraryStatus
 import edu.metrostate.ics342.mediatracker.data.model.creatorCredit
+import androidx.compose.foundation.rememberScrollState //add new line
+import androidx.compose.foundation.horizontalScroll //add new line
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,8 +34,8 @@ fun LibraryScreen(
 ) {
     val items     by viewModel.libraryItems.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
-
-    var selectedStatus by remember { mutableStateOf(LibraryStatus.WANT_TO) }
+// new line
+    var selectedStatus by viewModel.filterStatus.collectAsState()
     var selectedType   by remember { mutableStateOf("all") }
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -41,7 +44,8 @@ fun LibraryScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .horizontalScroll(rememberScrollState()), //add new line
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             listOf(
@@ -69,7 +73,7 @@ fun LibraryScreen(
                     shape    = SegmentedButtonDefaults.itemShape(
                         index = index, count = LibraryStatus.values().size),
                     selected = selectedStatus == status,
-                    onClick  = { selectedStatus = status },
+                    onClick  = { viewModel.updateFilter( status) },
                     label    = { Text(stringResource(status.labelRes)) }
                 )
             }
