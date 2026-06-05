@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import edu.metrostate.ics342.mediatracker.data.FakeMediaRepository
 import edu.metrostate.ics342.mediatracker.data.model.LibraryItem
 import edu.metrostate.ics342.mediatracker.data.model.LibraryStatus
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -46,7 +45,7 @@ class LibraryViewModel : ViewModel() {
     }
 
     //new line
-    fun updateFilter(status: libraryStatus){
+    fun updateFilter(status: LibraryStatus){
         _filterState.value= status
     }
 }

@@ -1,9 +1,12 @@
 package edu.metrostate.ics342.mediatracker.ui.library
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MoreVert
@@ -22,9 +25,6 @@ import coil.compose.AsyncImage
 import edu.metrostate.ics342.mediatracker.data.model.LibraryItem
 import edu.metrostate.ics342.mediatracker.data.model.LibraryStatus
 import edu.metrostate.ics342.mediatracker.data.model.creatorCredit
-import androidx.compose.foundation.rememberScrollState //add new line
-import androidx.compose.foundation.horizontalScroll //add new line
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,9 +34,9 @@ fun LibraryScreen(
 ) {
     val items     by viewModel.libraryItems.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
-// new line
-    var selectedStatus by viewModel.filterStatus.collectAsState()
-    var selectedType   by remember { mutableStateOf("all") }
+    val selectedStatus by viewModel.filterState.collectAsState()
+
+    var selectedType by remember { mutableStateOf("all") }
 
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(title = { Text(stringResource(edu.metrostate.ics342.mediatracker.R.string.library_title)) })
@@ -45,14 +45,16 @@ fun LibraryScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp)
-                .horizontalScroll(rememberScrollState()), //add new line
+                .horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             listOf(
                 "all"   to edu.metrostate.ics342.mediatracker.R.string.filter_all,
                 "book"  to edu.metrostate.ics342.mediatracker.R.string.filter_books,
                 "movie" to edu.metrostate.ics342.mediatracker.R.string.filter_movies,
-                "show"  to edu.metrostate.ics342.mediatracker.R.string.filter_shows
+                "show"  to edu.metrostate.ics342.mediatracker.R.string.filter_shows,
+                "comics" to edu.metrostate.ics342.mediatracker.R.string.filter_comics,
+                "albums" to edu.metrostate.ics342.mediatracker.R.string.filter_albums,
             )
                 .forEach { (key, labelRes) ->
                     FilterChip(
@@ -73,7 +75,7 @@ fun LibraryScreen(
                     shape    = SegmentedButtonDefaults.itemShape(
                         index = index, count = LibraryStatus.values().size),
                     selected = selectedStatus == status,
-                    onClick  = { viewModel.updateFilter( status) },
+                    onClick  = { viewModel.updateFilter(status) },
                     label    = { Text(stringResource(status.labelRes)) }
                 )
             }
