@@ -6,6 +6,7 @@ import edu.metrostate.ics342.mediatracker.data.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import edu.metrostate.ics342.mediatracker.data.model.UserRepository
 
 class RegisterViewModel(
     private val userRepository: UserRepository,
