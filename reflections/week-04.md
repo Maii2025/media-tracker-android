@@ -12,7 +12,6 @@
 
 **Link: https://github.com/Maii2025/media-tracker-android/pull/4/changes/d75b5747c8f2cf520af59a6b05c2142789d083dd
 
-
 ---
 
 ## Code Review
@@ -22,12 +21,15 @@
      Part 2 is your written assessment — what you actually looked at and what you found. -->
 
 **Reviewed:** Dylan Browne (pod mate's name)*
-**Link to my review:  https://github.com/DylanBrowneMetrostate/media-tracker-android/pull/7/changes/77fb98b399dacd8e1495a994f206bbbdf233d82c#r3400465208
+**Link to my review: https://github.com/DylanBrowneMetrostate/media-tracker-android/pull/7
 
 ### What I Looked At
 
 <!-- Walk through the code you reviewed. What was the PR trying to do? Which files or
      functions did you focus on? -->
+
+I focused on Dylan's RegisterViewModel.kt. The PR was trying to improve the register screen 
+by set an input validation and error handing function.   
 
 ### What I Noticed
 
@@ -35,10 +37,15 @@
      done well that you want to call out? "I looked at the ViewModel and everything seemed fine"
      is not specific enough. Name the thing you noticed and explain why it matters. -->
 
+I noticed that the validation logic have a lot of nested if statement. This can make it hard to read.
+Some parts of the code could be written in a short and clear, which would make it easy to understand and fixing later on. 
+
 ### Comments I Left
 
 <!-- Briefly summarize the comments you left on the PR. If you left a positive comment,
      say what it was. If you left a suggestion, say what you suggested and why. -->
+
+Suggest to make the code easy to read and separate prompt. 
 
 ---
 
@@ -48,6 +55,13 @@
      what was confusing before, what made it make sense, and how you'd explain it to someone else.
      There are no wrong answers here. -->
 
+One thing I understand better is how to send my code from Android Studio to GitHub. Before, I was struggle,  now
+I can commit my changes and push them so they show up on GitHub.
+
+
+
+    
+
 ---
 
 ## One Thing I'm Still Confused About
@@ -55,12 +69,17 @@
 <!-- Be honest. This is the most useful part of the reflection for me — it tells me where to
      spend more time in class. You will not lose points for being confused. -->
 
+Not so sure how many files I need to completed for this iteration (week-04). 
+Today, I was focused on how to fix my coding and screen. Did not complete much, but will work on the pending work. 
+
 ---
 
 ## Anything Else *(optional)*
 
 <!-- Did you help a pod mate work through something? Did you discover something cool or frustrating?
      Did something from a previous week finally click? This is a good place to put it. -->
+
+None. 
 
 ---
 
