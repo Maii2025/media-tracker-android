@@ -10,7 +10,7 @@
 <!-- Paste a link to your commits for this week. The easiest way: go to your repo on GitHub,
      click "commits", and copy the URL after filtering by your name or branch. -->
 
-**Link: ttps://github.com/Maii2025/media-tracker-android/pull/4/changes/d75b5747c8f2cf520af59a6b05c2142789d083dd
+**Link: https://github.com/Maii2025/media-tracker-android/pull/4/changes/d75b5747c8f2cf520af59a6b05c2142789d083dd
 
 
 ---
