@@ -11,11 +11,9 @@ const val baseURL = "https://wjtzkgpxmxtzcczzbvrz.supabase.co/functions/v1/"
 class UserRepository {
     private val api: ApiService = Retrofit.Builder()
         .baseUrl(baseURL)
-        .addConterFactory(
-            json.asConverterFactory(
-                contentType = "application/json; charset=utf-8".toMedoaType()
-            )
-        )
+        .addConverterFactory(
+            Json.asConverterFactory(
+                 "application/json; charset=utf-8".toMediaType()))
         .build()
         .create(ApiService::class.java)
 
