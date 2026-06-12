@@ -13,7 +13,9 @@ class UserRepository {
         .baseUrl(baseURL)
         .addConverterFactory(
             Json.asConverterFactory(
-                 "application/json; charset=utf-8".toMediaType()))
+                contentType = "application/json; charset=utf-8".toMediaType()
+            )
+        )
         .build()
         .create(ApiService::class.java)
 

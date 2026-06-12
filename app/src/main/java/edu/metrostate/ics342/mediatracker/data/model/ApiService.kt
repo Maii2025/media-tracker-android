@@ -1,6 +1,5 @@
 package edu.metrostate.ics342.mediatracker.data.model
 
-
 import edu.metrostate.ics342.mediatracker.data.model.CreateUserRequest
 import edu.metrostate.ics342.mediatracker.data.model.TokenRequest
 import retrofit2.http.Body
