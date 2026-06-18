@@ -24,6 +24,8 @@ import edu.metrostate.ics342.mediatracker.ui.review.WriteReviewScreen
 import edu.metrostate.ics342.mediatracker.ui.search.SearchScreen
 import edu.metrostate.ics342.mediatracker.ui.settings.SettingsScreen
 
+
+//set of string
 private val bottomNavRoutes = setOf(
     Routes.ACTIVITY_FEED,
     Routes.SEARCH,
