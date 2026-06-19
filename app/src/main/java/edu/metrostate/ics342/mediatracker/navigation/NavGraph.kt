@@ -51,9 +51,17 @@ fun MediaTrackerNavGraph(navController: NavHostController) {
             startDestination = Routes.LOGIN,
             modifier         = Modifier.padding(innerPadding)
         ) {
-            composable(Routes.LOGIN) {
+            composable(
+                route     = "${Routes.LOGIN}?registered={registered}",
+                arguments = listOf(navArgument("registered") {
+                    type         = NavType.BoolType
+                    defaultValue = false
+                })
+            ) { backStackEntry ->
+                val showRegistrationSuccess = backStackEntry.arguments?.getBoolean("registered") ?: false
                 LoginScreen(
-                    onLoginSuccess       = {
+                    showRegistrationSuccess = showRegistrationSuccess,
+                    onLoginSuccess          = {
                         navController.navigate(Routes.ACTIVITY_FEED) {
                             popUpTo(Routes.LOGIN) { inclusive = true }
                         }
@@ -61,11 +69,10 @@ fun MediaTrackerNavGraph(navController: NavHostController) {
                     onNavigateToRegister = { navController.navigate(Routes.REGISTER) }
                 )
             }
-
             composable(Routes.REGISTER) {
                 RegisterScreen(
                     onRegisterSuccess = {
-                        navController.navigate(Routes.ACTIVITY_FEED) {
+                        navController.navigate("${Routes.LOGIN}?registered=true") {
                             popUpTo(Routes.LOGIN) { inclusive = true }
                         }
                     },

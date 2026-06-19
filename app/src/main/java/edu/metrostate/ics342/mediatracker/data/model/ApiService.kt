@@ -1,15 +1,19 @@
 package edu.metrostate.ics342.mediatracker.data.model
 
-import edu.metrostate.ics342.mediatracker.data.model.CreateUserRequest
-import edu.metrostate.ics342.mediatracker.data.model.TokenRequest
+
 import retrofit2.http.Body
 import retrofit2.http.POST
+import retrofit2.Response
 
 interface ApiService {
     @POST("users")
-    suspend fun createUser(@Body request: CreateUserRequest): CreateUserResponse
+    suspend fun createUser(
+        @Body request: CreateUserRequest
+    ): CreateUserResponse
 
     @POST("tokens")
-    suspend fun login(@Body request: TokenRequest): TokenResponse
+    suspend fun login(
+        @Body request: TokenRequest
+    ): TokenResponse
 
 }

@@ -1,5 +1,9 @@
 package edu.metrostate.ics342.mediatracker.data.model
 
+
+import kotlinx.serialization.Serializable
+
+@serializable
 data class UserProfile(
     val id: String,
     val email: String,
