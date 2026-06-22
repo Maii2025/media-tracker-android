@@ -1,5 +1,8 @@
 package edu.metrostate.ics342.mediatracker.data.model
 
+
+
+@serializable
 data class UserProfile(
     val id: String,
     val email: String,

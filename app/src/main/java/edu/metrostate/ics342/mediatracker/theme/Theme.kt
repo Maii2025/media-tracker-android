@@ -37,9 +37,21 @@ private val DarkColorScheme = darkColorScheme(
     onPrimary           = DarkOnPrimary,
     primaryContainer    = DarkPrimaryContainer,
     onPrimaryContainer  = DarkOnPrimaryContainer,
+    secondary           = Secondary,
+    onSecondary         = OnSecondary,
+    secondaryContainer  = SecondaryContainer,
+    onSecondaryContainer = OnSecondaryContainer,
+    tertiary            = Tertiary,
+    onTertiary          = OnTertiary,
+    tertiaryContainer   = TertiaryContainer,
+    onTertiaryContainer = OnTertiaryContainer,
     background          = DarkBackground,
+    onBackground        = DarkOnSurface,
     surface             = DarkSurface,
     onSurface           = DarkOnSurface,
+    surfaceVariant      = DarkSurface,
+    onSurfaceVariant    = DarkOnSurface,
+    outline             = Outline,
 )
 
 @Composable
@@ -51,8 +63,10 @@ fun MediaTrackerTheme(
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
-            val window = (view.context as Activity).window
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
+            val activity = view.context as? Activity
+            if (activity != null) {
+                WindowCompat.getInsetsController(activity.window, view).isAppearanceLightStatusBars = !darkTheme
+            }
         }
     }
     MaterialTheme(

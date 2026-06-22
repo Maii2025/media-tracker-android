@@ -1,9 +1,15 @@
 import com.android.build.api.dsl.ApplicationExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    //alias(libs.plugins.kotlin.serialization)
+}
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) load(file.inputStream())
 }
 
 extensions.configure<ApplicationExtension> {
@@ -18,6 +24,10 @@ extensions.configure<ApplicationExtension> {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_CLIENT_ID", "\"${localProperties["apiClientId"]}\"")
+        buildConfigField("String", "API_CLIENT_SECRET", "\"${localProperties["apiClientSecret"]}\"")
+
     }
 
     buildTypes {
@@ -35,6 +45,7 @@ extensions.configure<ApplicationExtension> {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -62,6 +73,7 @@ dependencies {
 
     implementation(libs.retrofit.converters.kotlinx.serializtion)
     implementation(libs.kotlinx.serialization)
+    //implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp)

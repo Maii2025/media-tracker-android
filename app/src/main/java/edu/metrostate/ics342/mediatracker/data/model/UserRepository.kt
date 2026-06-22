@@ -8,7 +8,7 @@ import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
 const val baseURL = "https://wjtzkgpxmxtzcczzbvrz.supabase.co/functions/v1/"
 
-class UserRepository {
+open class UserRepository {
     private val api: ApiService = Retrofit.Builder()
         .baseUrl(baseURL)
         .addConverterFactory(

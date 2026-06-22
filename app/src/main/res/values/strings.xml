@@ -25,6 +25,8 @@
     <string name="filter_books">Books</string>
     <string name="filter_movies">Movies</string>
     <string name="filter_shows">Shows</string>
+    <string name="filter_comics">Comics</string>
+    <string name="filter_albums">Albums</string>
     <string name="library_empty">Nothing here yet.\nSearch for something to add.</string>
     <string name="library_items_count">%1$d items</string>
     <string name="library_item_count">%1$d item</string>
@@ -83,10 +85,21 @@
 
     <!-- Errors -->
     <string name="error_empty_credentials">Please enter your email and password.</string>
+    <string name="error_empty_fields">All fields are required.</string>
+    <string name="error_passwords_mismatch">Passwords do not match.</string>
+    <string name="error_email_or_username_taken">That email or username is already taken.</string>
+    <string name="error_network">Network error. Check your connection and try again.</string>
+    <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="register_success">Account created! Please sign in.</string>
+    <string name="error_invalid_credentials">Invalid email or password.</string>
+
+
 
     <!-- Media -->
     <string name="media_unknown_author">Unknown Author</string>
     <string name="media_unknown_director">Unknown Director</string>
     <string name="media_unknown_creator">Unknown Creator</string>
+
+
 
 </resources>
