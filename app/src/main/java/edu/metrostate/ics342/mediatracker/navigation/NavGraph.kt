@@ -1,6 +1,5 @@
 package edu.metrostate.ics342.mediatracker.navigation
 
-import android.net.Uri
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -22,14 +21,14 @@ import edu.metrostate.ics342.mediatracker.ui.profile.EditProfileScreen
 import edu.metrostate.ics342.mediatracker.ui.profile.MyProfileScreen
 import edu.metrostate.ics342.mediatracker.ui.profile.UserProfileScreen
 import edu.metrostate.ics342.mediatracker.ui.review.WriteReviewScreen
-import edu.metrostate.ics342.mediatracker.ui.search.SearchResultsScreen
 import edu.metrostate.ics342.mediatracker.ui.search.SearchScreen
 import edu.metrostate.ics342.mediatracker.ui.settings.SettingsScreen
 
+
+//set of string
 private val bottomNavRoutes = setOf(
     Routes.ACTIVITY_FEED,
     Routes.SEARCH,
-    Routes.SEARCH_RESULTS,
     Routes.LIBRARY,
     Routes.CONNECTIONS,
     Routes.MY_PROFILE,
@@ -70,7 +69,6 @@ fun MediaTrackerNavGraph(navController: NavHostController) {
                     onNavigateToRegister = { navController.navigate(Routes.REGISTER) }
                 )
             }
-
             composable(Routes.REGISTER) {
                 RegisterScreen(
                     onRegisterSuccess = {
@@ -91,24 +89,6 @@ fun MediaTrackerNavGraph(navController: NavHostController) {
 
             composable(Routes.SEARCH) {
                 SearchScreen(
-                    onSearch = { query ->
-                        navController.navigate("search_results?query=${Uri.encode(query)}")
-                    },
-                    onMediaClick = { mediaId -> navController.navigate("media_detail/$mediaId") }
-                )
-            }
-
-            composable(
-                route = Routes.SEARCH_RESULTS,
-                arguments = listOf(navArgument("query") {
-                    type         = NavType.StringType
-                    defaultValue = ""
-                })
-            ) { backStackEntry ->
-                val query = backStackEntry.arguments?.getString("query") ?: ""
-                SearchResultsScreen(
-                    initialQuery = query,
-                    onBack       = { navController.popBackStack() },
                     onMediaClick = { mediaId -> navController.navigate("media_detail/$mediaId") }
                 )
             }
@@ -119,15 +99,11 @@ fun MediaTrackerNavGraph(navController: NavHostController) {
                 )
             }
 
-            composable(
-                route     = Routes.MEDIA_DETAIL,
-                arguments = listOf(navArgument("mediaId") { type = NavType.IntType })
-            ) { backStackEntry ->
-                val mediaId = backStackEntry.arguments?.getInt("mediaId") ?: return@composable
+            composable(route = Routes.MEDIA_DETAIL) {
                 MediaDetailScreen(
-                    mediaId        = mediaId,
+                    mediaId        = -1,
                     onNavigateBack = { navController.popBackStack() },
-                    onWriteReview  = { id -> navController.navigate("write_review/$id") }
+                    onWriteReview  = { mediaId -> navController.navigate("write_review/$mediaId") }
                 )
             }
 

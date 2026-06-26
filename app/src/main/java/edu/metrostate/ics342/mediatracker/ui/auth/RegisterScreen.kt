@@ -2,24 +2,37 @@ package edu.metrostate.ics342.mediatracker.ui.auth
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import edu.metrostate.ics342.mediatracker.R
-import edu.metrostate.ics342.mediatracker.theme.MediaTrackerTheme
 import edu.metrostate.ics342.mediatracker.theme.OnPrimaryContainer
 import edu.metrostate.ics342.mediatracker.theme.PrimaryContainer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.clickable
+import androidx.compose.material3.Button
+
+
 
 @Composable
 fun RegisterScreen(
@@ -32,55 +45,6 @@ fun RegisterScreen(
     val email by viewModel.email.collectAsState()
     val password by viewModel.password.collectAsState()
     val confirmPassword by viewModel.confirmPassword.collectAsState()
-    val registerState by viewModel.registerState.collectAsState()
-
-    // Calling RegisterContent with all state and events
-    RegisterContent(
-        displayName = displayName,
-        username = username,
-        email = email,
-        password = password,
-        confirmPassword = confirmPassword,
-        registerState = registerState,
-        onDisplayNameChange = viewModel::onDisplayNameChange,
-        onUsernameChange = viewModel::onUsernameChange,
-        onEmailChange = viewModel::onEmailChange,
-        onPasswordChange = viewModel::onPasswordChange,
-        onConfirmPasswordChange = viewModel::onConfirmPasswordChange,
-        onRegisterClick = viewModel::onRegisterClick,
-        onRegisterSuccess = onRegisterSuccess,
-        onNavigateToLogin = onNavigateToLogin,
-        resetRegisterState = viewModel::resetRegisterState
-    )
-}
-
-@Composable
-fun RegisterContent(
-    displayName: String,
-    username: String,
-    email: String,
-    password: String,
-    confirmPassword: String,
-    registerState: RegisterViewModel.RegisterUiState,
-    onDisplayNameChange: (String) -> Unit,
-    onUsernameChange: (String) -> Unit,
-    onEmailChange: (String) -> Unit,
-    onPasswordChange: (String) -> Unit,
-    onConfirmPasswordChange: (String) -> Unit,
-    onRegisterClick: () -> Unit,
-    onRegisterSuccess: () -> Unit,
-    onNavigateToLogin: () -> Unit,
-    resetRegisterState: () -> Unit
-) {
-    LaunchedEffect(registerState) {
-        if (registerState is RegisterViewModel.RegisterUiState.Success) {
-            resetRegisterState()
-            onRegisterSuccess()
-        }
-    }
-
-    val isLoading = registerState is RegisterViewModel.RegisterUiState.Loading
-    val errorMsg = (registerState as? RegisterViewModel.RegisterUiState.Error)?.msgResId?.let { stringResource(it) }
 
     Column(
         modifier = Modifier
@@ -90,7 +54,7 @@ fun RegisterContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
-        Spacer(modifier = Modifier.height(60.dp))
+        Spacer(modifier= Modifier.height(60.dp))
 
         //image icon
         Image(
@@ -104,44 +68,49 @@ fun RegisterContent(
         )
 
         //spacer above icon image and below
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier= Modifier.height(16.dp))
 
         //Title
         Text(
-            text = "Create Account",
-            style = MaterialTheme.typography.headlineMedium
+            text= "Create Account",
+            style= MaterialTheme.typography.headlineMedium
         )
 
         Text(
-            text = "Join the Community",
-            style = MaterialTheme.typography.bodyMedium,
+            text= "Join the Community",
+            style= MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
-        Spacer(modifier = Modifier.height(34.dp))
+        Spacer(modifier= Modifier.height(34.dp))
+
+        //Display name (TextField and OutlinedTextField can be use here:
+        //TextField is a simple input box (no outline),
+        // but OutlinedTextField has a border around,
+        // make form inputs like login and register easier to see
 
         OutlinedTextField(
             value = displayName,
-            onValueChange = onDisplayNameChange,
+            onValueChange = viewModel::onDisplayNameChange,
             label = { Text("Display Name") },
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier= Modifier.height(12.dp))
 
         //Username
         OutlinedTextField(
             value = username,
-            onValueChange = onUsernameChange,
+            onValueChange = viewModel::onUsernameChange,
             label = { Text("Username") },
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier= Modifier.height(12.dp))
 
         //Email
         OutlinedTextField(
             value = email,
-            onValueChange = onEmailChange,
+            onValueChange = viewModel::onEmailChange,
             label = { Text("Email") },
             modifier = Modifier.fillMaxWidth()
         )
@@ -151,7 +120,7 @@ fun RegisterContent(
         //Pw
         OutlinedTextField(
             value = password,
-            onValueChange = onPasswordChange,
+            onValueChange = viewModel::onPasswordChange,
             label = { Text("Password") },
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth()
@@ -161,7 +130,7 @@ fun RegisterContent(
         // CONFIRM PASSWORD
         OutlinedTextField(
             value = confirmPassword,
-            onValueChange = onConfirmPasswordChange,
+            onValueChange = viewModel::onConfirmPasswordChange,
             label = { Text("Confirm Password") },
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth()
@@ -169,31 +138,16 @@ fun RegisterContent(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        if (errorMsg != null) {
-            Text(
-                text = errorMsg,
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-        }
-
         Button(
-            onClick = { onRegisterClick() },
-            enabled = !isLoading,
+            onClick = {
+                viewModel.onRegisterClick()
+                onRegisterSuccess() // must use this cause it provide in the above
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(52.dp)
         ) {
-            if (isLoading) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(24.dp),
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    strokeWidth = 2.dp
-                )
-            } else {
-                Text("Sign Up")
-            }
+            Text("Sign Up")
         }
         Spacer(modifier = Modifier.height(12.dp))
 
@@ -217,24 +171,5 @@ fun RegisterContent(
 @Composable
 @Preview(showSystemUi = true)
 fun RegisterScreenPreview() {
-    MediaTrackerTheme {
-        // Calling RegisterContent with all state and events
-    RegisterContent(
-            displayName = "",
-            username = "",
-            email = "",
-            password = "",
-            confirmPassword = "",
-            registerState = RegisterViewModel.RegisterUiState.Idle,
-            onDisplayNameChange = {},
-            onUsernameChange = {},
-            onEmailChange = {},
-            onPasswordChange = {},
-            onConfirmPasswordChange = {},
-            onRegisterClick = {},
-            onRegisterSuccess = {},
-            onNavigateToLogin = {},
-            resetRegisterState = {}
-        )
-    }
+    RegisterScreen({}, {})
 }

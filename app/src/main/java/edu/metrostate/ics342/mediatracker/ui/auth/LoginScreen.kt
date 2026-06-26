@@ -1,5 +1,7 @@
 package edu.metrostate.ics342.mediatracker.ui.auth
 
+import androidx.compose.ui.tooling.preview.Preview
+import edu.metrostate.ics342.mediatracker.theme.MediaTrackerTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -14,12 +16,9 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import edu.metrostate.ics342.mediatracker.R
-import edu.metrostate.ics342.mediatracker.theme.MediaTrackerTheme
-
 @Composable
 fun LoginScreen(
     showRegistrationSuccess: Boolean = false,
@@ -27,40 +26,13 @@ fun LoginScreen(
     onNavigateToRegister: () -> Unit,
     viewModel: AuthViewModel = viewModel()
 ) {
-    val email by viewModel.email.collectAsState()
-    val password by viewModel.password.collectAsState()
+    val email      by viewModel.email.collectAsState()
+    val password   by viewModel.password.collectAsState()
     val loginState by viewModel.loginState.collectAsState()
 
-    LoginContent(
-        email = email,
-        password = password,
-        loginState = loginState,
-        showRegistrationSuccess = showRegistrationSuccess,
-        onEmailChange = viewModel::onEmailChange,
-        onPasswordChange = viewModel::onPasswordChange,
-        onLoginClick = viewModel::onLoginClick,
-        onLoginSuccess = onLoginSuccess,
-        onNavigateToRegister = onNavigateToRegister,
-        resetLoginState = viewModel::resetLoginState
-    )
-}
-
-@Composable
-fun LoginContent(
-    email: String,
-    password: String,
-    loginState: AuthViewModel.AuthUiState,
-    showRegistrationSuccess: Boolean,
-    onEmailChange: (String) -> Unit,
-    onPasswordChange: (String) -> Unit,
-    onLoginClick: () -> Unit,
-    onLoginSuccess: () -> Unit,
-    onNavigateToRegister: () -> Unit,
-    resetLoginState: () -> Unit
-) {
-    val focusManager = LocalFocusManager.current
+    val focusManager      = LocalFocusManager.current
     val snackbarHostState = remember { SnackbarHostState() }
-    val successMessage = stringResource(R.string.register_success)
+    val successMessage    = stringResource(R.string.register_success)
 
     LaunchedEffect(showRegistrationSuccess) {
         if (showRegistrationSuccess) {
@@ -70,13 +42,13 @@ fun LoginContent(
 
     LaunchedEffect(loginState) {
         if (loginState is AuthViewModel.AuthUiState.Success) {
-            resetLoginState()
+            viewModel.resetLoginState()
             onLoginSuccess()
         }
     }
 
     val isLoading = loginState is AuthViewModel.AuthUiState.Loading
-    val errorMsg = (loginState as? AuthViewModel.AuthUiState.Error)?.msgResId?.let { stringResource(it) }
+    val errorMsg  = (loginState as? AuthViewModel.AuthUiState.Error)?.msgResId?.let { stringResource(it) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -96,21 +68,21 @@ fun LoginContent(
 
             Text(
                 stringResource(R.string.app_tagline),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style     = MaterialTheme.typography.bodyMedium,
+                color     = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
             )
 
             Spacer(Modifier.height(40.dp))
 
             OutlinedTextField(
-                value = email,
-                onValueChange = onEmailChange,
-                label = { Text(stringResource(R.string.email_label)) },
-                singleLine = true,
+                value           = email,
+                onValueChange   = viewModel::onEmailChange,
+                label           = { Text(stringResource(R.string.email_label)) },
+                singleLine      = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Email,
-                    imeAction = ImeAction.Next
+                    imeAction    = ImeAction.Next
                 ),
                 keyboardActions = KeyboardActions(
                     onNext = { focusManager.moveFocus(FocusDirection.Down) }
@@ -121,20 +93,17 @@ fun LoginContent(
             Spacer(Modifier.height(12.dp))
 
             OutlinedTextField(
-                value = password,
-                onValueChange = onPasswordChange,
-                label = { Text(stringResource(R.string.password_label)) },
-                singleLine = true,
+                value                = password,
+                onValueChange        = viewModel::onPasswordChange,
+                label                = { Text(stringResource(R.string.password_label)) },
+                singleLine           = true,
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Password,
-                    imeAction = ImeAction.Done
+                    imeAction    = ImeAction.Done
                 ),
                 keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.clearFocus()
-                        onLoginClick()
-                    }
+                    onDone = { focusManager.clearFocus(); viewModel.onLoginClick() }
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
@@ -151,20 +120,17 @@ fun LoginContent(
             Spacer(Modifier.height(24.dp))
 
             Button(
-                onClick = {
-                    focusManager.clearFocus()
-                    onLoginClick()
-                },
-                enabled = !isLoading,
+                onClick  = { focusManager.clearFocus(); viewModel.onLoginClick() },
+                enabled  = !isLoading,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp)
             ) {
                 if (isLoading) {
                     CircularProgressIndicator(
-                        modifier = Modifier.size(20.dp),
+                        modifier    = Modifier.size(20.dp),
                         strokeWidth = 2.dp,
-                        color = MaterialTheme.colorScheme.onPrimary
+                        color       = MaterialTheme.colorScheme.onPrimary
                     )
                 } else {
                     Text(stringResource(R.string.sign_in_button))
@@ -180,7 +146,7 @@ fun LoginContent(
 
         SnackbarHost(
             hostState = snackbarHostState,
-            modifier = Modifier.align(Alignment.BottomCenter)
+            modifier  = Modifier.align(Alignment.BottomCenter)
         )
     }
 }
@@ -189,17 +155,9 @@ fun LoginContent(
 @Composable
 fun LoginScreenPreview() {
     MediaTrackerTheme {
-        LoginContent(
-            email = "",
-            password = "",
-            loginState = AuthViewModel.AuthUiState.Idle,
-            showRegistrationSuccess = false,
-            onEmailChange = {},
-            onPasswordChange = {},
-            onLoginClick = {},
-            onLoginSuccess = {},
-            onNavigateToRegister = {},
-            resetLoginState = {}
+        LoginScreen(
+            onLoginSuccess       = {},
+            onNavigateToRegister = {}
         )
     }
 }

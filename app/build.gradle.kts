@@ -5,9 +5,8 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.serialization)
+    //alias(libs.plugins.kotlin.serialization)
 }
-
 val localProperties = Properties().apply {
     val file = rootProject.file("local.properties")
     if (file.exists()) load(file.inputStream())
@@ -15,7 +14,7 @@ val localProperties = Properties().apply {
 
 extensions.configure<ApplicationExtension> {
     namespace = "edu.metrostate.ics342.mediatracker"
-    compileSdk = 37
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "edu.metrostate.ics342.mediatracker"
@@ -26,8 +25,9 @@ extensions.configure<ApplicationExtension> {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "API_CLIENT_ID", "\"${localProperties["apiClientId"] ?: ""}\"")
-        buildConfigField("String", "API_CLIENT_SECRET", "\"${localProperties["apiClientSecret"] ?: ""}\"")
+        buildConfigField("String", "API_CLIENT_ID", "\"${localProperties["apiClientId"]}\"")
+        buildConfigField("String", "API_CLIENT_SECRET", "\"${localProperties["apiClientSecret"]}\"")
+
     }
 
     buildTypes {
@@ -40,8 +40,8 @@ extensions.configure<ApplicationExtension> {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_22
+        targetCompatibility = JavaVersion.VERSION_22
     }
     buildFeatures {
         compose = true
@@ -50,9 +50,9 @@ extensions.configure<ApplicationExtension> {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(22)
     compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_17)
+        jvmTarget.set(JvmTarget.JVM_22)
     }
 }
 
@@ -73,6 +73,7 @@ dependencies {
 
     implementation(libs.retrofit.converters.kotlinx.serializtion)
     implementation(libs.kotlinx.serialization)
+    //implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp)

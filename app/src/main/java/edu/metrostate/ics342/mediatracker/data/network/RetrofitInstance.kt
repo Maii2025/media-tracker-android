@@ -7,7 +7,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
-import edu.metrostate.ics342.mediatracker.data.SessionRepository
 
 object RetrofitInstance {
 
@@ -16,29 +15,17 @@ object RetrofitInstance {
         encodeDefaults    = true
     }
 
-    private fun loggingInterceptor() = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
+    private val client = OkHttpClient.Builder()
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
+        .build()
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(ApiConstants.BASE_URL)
-        .client(OkHttpClient.Builder().addInterceptor(loggingInterceptor()).build())
+        .client(client)
         .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
         .build()
 
     val userApiService: UserApiService = retrofit.create(UserApiService::class.java)
-
-    fun mediaApiService(sessionRepository: SessionRepository): MediaApiService =
-        Retrofit.Builder()
-            .baseUrl(ApiConstants.BASE_URL)
-            .client(
-                OkHttpClient.Builder()
-                    .addInterceptor(AuthInterceptor(sessionRepository))
-                    .addInterceptor(loggingInterceptor())
-                    .build()
-            )
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-            .build()
-            .create(MediaApiService::class.java)
-
 }
