@@ -3,6 +3,7 @@ package edu.metrostate.ics342.mediatracker.data.network
 import edu.metrostate.ics342.mediatracker.data.SessionRepository
 import edu.metrostate.ics342.mediatracker.data.model.Media
 
+
 data class MediaPage(
     val items: List<Media>,
     val nextCursor: String?,
