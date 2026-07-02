@@ -113,7 +113,8 @@ fun MyProfileScreen(
 
             OutlinedButton(
                 onClick  = onEditProfile,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp)
             ) { Text(stringResource(edu.metrostate.ics342.mediatracker.R.string.profile_edit_button)) }
 
             Spacer(Modifier.height(24.dp))
