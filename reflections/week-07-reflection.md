@@ -10,7 +10,7 @@
 <!-- Paste a link to your commits for this week. The easiest way: go to your repo on GitHub,
      click "commits", and copy the URL after filtering by your name or branch. -->
 
-**Link: https://github.com/Maii2025/media-tracker-android/pull/6
+**Link: https://github.com/Maii2025/media-tracker-android/commit/936c474da48440322dc998eab5a3250faa1f5e15
 ---
 
 ## Code Review
@@ -19,13 +19,17 @@
      Part 1 is the link — I will verify the review exists on GitHub.
      Part 2 is your written assessment — what you actually looked at and what you found. -->
 
-**Reviewed: Dylan Browne *(pod mate's name)*
+**Reviewed: Jacob Vigliotti* *(pod mate's name)*
 **Link to my review: https://github.com/jacobvigliotti/media-tracker-android/pull/7/changes/f11d779ca9fc8df520bca8573e8fd5c59dc9b33d
 
 ### What I Looked At
 
 <!-- Walk through the code you reviewed. What was the PR trying to do? Which files or
      functions did you focus on? -->
+
+The files that I look into his code is: MediaDetailScreen.kt. This file show all the details that 
+he build for a single media page in the library. It includes the cover image, title, author,
+description, rating, action buttons (Want To and Save), and a section for reviews. 
 
 
 
@@ -35,6 +39,18 @@
      done well that you want to call out? "I looked at the ViewModel and everything seemed fine"
      is not specific enough. Name the thing you noticed and explain why it matters. -->
 
+I noticed that the code is clear and easy to read. The TopAppBbar has a back button that helps the user
+go back to the previous screen. This is important because if there is no back button, the user would
+get stuck on the page and not be able to return to the last screen. The back button works by
+calling onNavigateBack(), which sends the user back when they tap it.
+
+"TopAppBar(
+modifier = Modifier.fillMaxWidth(), // Forces full horizontal width
+navigationIcon = {
+IconButton(onClick = { onNavigateBack() }) {
+Icon(
+imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+contentDescription = "Back"
 
 
 ### Comments I Left
@@ -42,8 +58,14 @@
 <!-- Briefly summarize the comments you left on the PR. If you left a positive comment,
      say what it was. If you left a suggestion, say what you suggested and why. -->
 ---
+let my pod mate know that it is important to have a back button to help users navigate back to the
+previous screen. This matters for this page because it makes it easier for users to move around the
+app and return to the original screen without confusion.
 
-T
+I also mentioned that the page description for Dune uses the same information as the wireframe 
+that we are trying to build. I suggested that he and I should consider adding information that
+relates more to us personally. I also understand why he did not include unique information 
+in that test description because of the short time.
 
 ## One Thing I Understood More Deeply
 
@@ -52,10 +74,10 @@ T
      There are no wrong answers here. -->
 
 ---
-I understand how Retrofit uses @Query parameters to build a network request. I learned that when
-a parameter has a null value, Retrofit does not send that parameter in the request. This helped 
-me understand that null values can change what the API returns because the search depends on 
-which parameters are included.
+One thing I understand more deeply is that each page or screen we build can use @Composable to 
+preview the screen. I may not have pay close attention to the word @Composable before, and 
+it did not fully make sense to me. Now I understand why this annotation is important when 
+building a screen in Jetpack Compose.
 
 ## One Thing I'm Still Confused About
 
@@ -63,7 +85,9 @@ which parameters are included.
      spend more time in class. You will not lose points for being confused. -->
 
 ---
-
+One thing I’m still confused about is how @Composable works when building a full screen. 
+I know it helps show UI, but I am still learning how different composable functions work together 
+and update the screen.
 
 ## Anything Else *(optional)*
 
@@ -71,7 +95,15 @@ which parameters are included.
      Did something from a previous week finally click? This is a good place to put it. -->
 
 ---
-None.
+
+I like how you give us directions through Word documents. This helps us read the questions
+multiple times and better understand them. It would be great if you could upload them 1 or
+2 days ahead of time. This would help me and other students who have issues with their 
+code to work ahead. Most of the time, I am trying to fix my screen but cannot find the 
+issue. It is not that I did not work on my issue before class—I did—but sometimes I 
+still run into problems after adding code to the program.
+
+
 
 ## Rubric
 
