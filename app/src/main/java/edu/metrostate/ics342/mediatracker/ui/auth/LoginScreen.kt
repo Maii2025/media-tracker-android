@@ -1,6 +1,7 @@
 package edu.metrostate.ics342.mediatracker.ui.auth
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
@@ -89,7 +90,7 @@ fun LoginContent(
             Text(
                 stringResource(R.string.app_name),
                 style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Spacer(Modifier.height(8.dp))
@@ -103,11 +104,19 @@ fun LoginContent(
 
             Spacer(Modifier.height(40.dp))
 
+            //email
             OutlinedTextField(
                 value = email,
                 onValueChange = onEmailChange,
-                label = { Text(stringResource(R.string.email_label)) },
+                placeholder = { Text(stringResource(R.string.email_label)) }, //label does not here- not same as the idea image
                 singleLine = true,
+                shape = RoundedCornerShape(8.dp),
+                colors= OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.outline
+                ),
+
+
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Email,
                     imeAction = ImeAction.Next
@@ -120,11 +129,16 @@ fun LoginContent(
 
             Spacer(Modifier.height(12.dp))
 
+            //Pw
             OutlinedTextField(
                 value = password,
                 onValueChange = onPasswordChange,
                 label = { Text(stringResource(R.string.password_label)) },
                 singleLine = true,
+                shape = RoundedCornerShape(8.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = MaterialTheme.colorScheme.primary
+                ),
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Password,
@@ -150,12 +164,18 @@ fun LoginContent(
 
             Spacer(Modifier.height(24.dp))
 
+            //button fixed
             Button(
                 onClick = {
                     focusManager.clearFocus()
                     onLoginClick()
                 },
                 enabled = !isLoading,
+                shape = RoundedCornerShape(20.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp)

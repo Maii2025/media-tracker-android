@@ -65,7 +65,7 @@ private fun ActivityCard(
             .clickable { onMediaClick() },
         shape     = RoundedCornerShape(12.dp),
         colors    = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp) //change from 1 to 2 for Extra Credit
     ) {
         Row(
             modifier = Modifier.padding(12.dp),
