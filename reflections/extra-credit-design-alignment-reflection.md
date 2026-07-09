@@ -3,7 +3,7 @@
 *See `extra-credit-design-alignment.md` for submission requirements and the full assignment description.*
 
 **Name: Mai Nhia Vang
-**Date: 07/02/2026
+**Date: 07/09/2026
 
 ---
 
